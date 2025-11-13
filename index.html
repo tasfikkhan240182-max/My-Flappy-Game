@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Flappy Game - Play Online Free</title>
+  <meta name="description" content="Play My Flappy Game online for free. A whimsical Ghibli-style flappy bird game hosted on GitHub Pages. No download required.">
+  <meta name="keywords" content="Flappy Bird, My Flappy Game, HTML5 Game, Play Online, Free Game, GitHub Pages">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ✅ Google AdSense verification + loader -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9656418328880059"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      background: url('assets/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+    }
+    h1, p {
+      margin: 4px 0;
+    }
+    canvas {
+      display: block;
+      margin: 8px auto;
+      border: 2px solid #fff;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>My Flappy Game</h1>
+  <p>Play the whimsical Ghibli-inspired flappy bird game online for free!</p>
+
+  <canvas id="gameCanvas" width="480" height="640"></canvas>
+  <script src="game.js" defer></script>
+</body>
+</html>

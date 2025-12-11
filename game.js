@@ -32,7 +32,10 @@ document.addEventListener('click', handleInput);
 
 function handleInput(e) {
   if (!gameStarted && !countdownActive && !gameOver) {
+    // প্রথমবার input এ countdown শুরু হবে
     startCountdown();
+    // ✅ সাথে সাথে bird jump করবে
+    birdVelocity = jump;
   } 
   else if (gameStarted && !gameOver) {
     birdVelocity = jump;
@@ -168,11 +171,5 @@ pipeImg.onload = () => {
     ctx.font = "32px sans-serif";
     ctx.fillText("Tap or Press Any Key to Start", canvas.width / 2 - 180, canvas.height / 2);
   };
-
 };
-
-
-
-
-
 

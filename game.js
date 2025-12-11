@@ -11,7 +11,7 @@ pipeImg.src = 'assets/pipe.png';
 // Game variables
 let birdY = 250;
 let birdVelocity = 0;
-const gravity = 9.8;      // slower fall
+const gravity = 0.5;      // slower fall
 const jump = -8;
 let pipes = [];
 let score = 0;
@@ -170,6 +170,7 @@ pipeImg.onload = () => {
   };
 
 };
+
 
 
 

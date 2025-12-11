@@ -18,7 +18,7 @@ let score = 0;
 let gameOver = false;
 let pipeTimer = 0;
 const pipeInterval = 145;
-const pipeSpeed = 2;
+const pipeSpeed = 2.8;
 const pipeGap = 240;
 let gameStarted = false;
 let countdown = 3;
@@ -170,6 +170,7 @@ pipeImg.onload = () => {
   };
 
 };
+
 
 
 

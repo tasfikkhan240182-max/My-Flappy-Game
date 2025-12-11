@@ -17,7 +17,7 @@ let pipes = [];
 let score = 0;
 let gameOver = false;
 let pipeTimer = 0;
-const pipeInterval = 131;
+const pipeInterval = 145;
 const pipeSpeed = 2;
 const pipeGap = 240;
 let gameStarted = false;
@@ -170,5 +170,6 @@ pipeImg.onload = () => {
   };
 
 };
+
 
 

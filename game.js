@@ -8,43 +8,50 @@ birdImg.src = 'assets/bird.png';
 const pipeImg = new Image();
 pipeImg.src = 'assets/pipe.png';
 
-// Game variables
+// ================= GAME VARIABLES =================
 let birdY = 250;
 let birdVelocity = 0;
-const gravity = 0.5;      // slower fall
-const jump = -5.5;
+
+const gravity = 0.5;
+const jump = -8;
+
 let pipes = [];
 let score = 0;
 let gameOver = false;
 let pipeTimer = 0;
+
 const pipeInterval = 145;
 const pipeSpeed = 2.8;
 const pipeGap = 240;
+
 let gameStarted = false;
+
+// Countdown
 let countdown = 3;
 let countdownActive = false;
 let countdownInterval = null;
 
-// Event listeners for PC + Mobile
+// 🔑 Restart control
+let canRestart = false;
+
+// ================= INPUT =================
 document.addEventListener('keydown', handleInput);
 document.addEventListener('touchstart', handleInput);
 document.addEventListener('click', handleInput);
 
 function handleInput(e) {
   if (!gameStarted && !countdownActive && !gameOver) {
-    // প্রথমবার input এ countdown শুরু হবে
     startCountdown();
-    // ✅ সাথে সাথে bird jump করবে
-    birdVelocity = jump;
   } 
   else if (gameStarted && !gameOver) {
     birdVelocity = jump;
   } 
-  else if (gameOver && (e.code === "Space" || e.code === "Enter" || e.type === "touchstart" || e.type === "click")) {
+  else if (gameOver && canRestart) {
     resetGame();
   }
 }
 
+// ================= COUNTDOWN =================
 function startCountdown() {
   countdownActive = true;
   countdown = 3;
@@ -65,13 +72,20 @@ function startCountdown() {
   }, 1000);
 }
 
+// ================= DRAW =================
 function drawBird() {
   ctx.drawImage(birdImg, 50, birdY, 40, 40);
 }
 
 function drawPipe(pipe) {
   ctx.drawImage(pipeImg, pipe.x, 0, 60, pipe.top);
-  ctx.drawImage(pipeImg, pipe.x, pipe.top + pipeGap, 60, canvas.height - pipe.top - pipeGap);
+  ctx.drawImage(
+    pipeImg,
+    pipe.x,
+    pipe.top + pipeGap,
+    60,
+    canvas.height - pipe.top - pipeGap
+  );
 }
 
 function isColliding(a, b) {
@@ -83,6 +97,7 @@ function isColliding(a, b) {
   );
 }
 
+// ================= GAME LOOP =================
 function update() {
   if (!gameStarted || gameOver) return;
 
@@ -99,7 +114,10 @@ function update() {
 
   pipeTimer++;
   if (pipeTimer >= pipeInterval) {
-    const top = Math.floor(Math.random() * (canvas.height - pipeGap - 100)) + 50;
+    const top = Math.floor(
+      Math.random() * (canvas.height - pipeGap - 100)
+    ) + 50;
+
     pipes.push({ x: canvas.width, top, passed: false });
     pipeTimer = 0;
   }
@@ -117,7 +135,10 @@ function update() {
       height: canvas.height - pipe.top - pipeGap
     };
 
-    if (isColliding(birdBox, pipeTopBox) || isColliding(birdBox, pipeBottomBox)) {
+    if (
+      isColliding(birdBox, pipeTopBox) ||
+      isColliding(birdBox, pipeBottomBox)
+    ) {
       endGame();
       return;
     }
@@ -137,9 +158,11 @@ function update() {
   requestAnimationFrame(update);
 }
 
+// ================= GAME OVER =================
 function endGame() {
   gameOver = true;
   gameStarted = false;
+  canRestart = false;
 
   ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -148,9 +171,19 @@ function endGame() {
   ctx.fillText("Game Over!", canvas.width / 2 - 100, canvas.height / 2 - 30);
   ctx.font = "28px sans-serif";
   ctx.fillText("Final Score: " + score, canvas.width / 2 - 90, canvas.height / 2 + 10);
-  ctx.fillText("Tap or Press Space to Restart", canvas.width / 2 - 170, canvas.height / 2 + 50);
+  ctx.fillText(
+    "Tap or Press Any Key to Restart",
+    canvas.width / 2 - 190,
+    canvas.height / 2 + 50
+  );
+
+  // ⏱️ Restart delay (important fix)
+  setTimeout(() => {
+    canRestart = true;
+  }, 500);
 }
 
+// ================= RESET =================
 function resetGame() {
   clearInterval(countdownInterval);
   countdownActive = false;
@@ -164,13 +197,15 @@ function resetGame() {
   startCountdown();
 }
 
-// Load images then show start message
+// ================= START SCREEN =================
 pipeImg.onload = () => {
   birdImg.onload = () => {
     ctx.fillStyle = "#fff";
     ctx.font = "32px sans-serif";
-    ctx.fillText("Tap or Press Any Key to Start", canvas.width / 2 - 180, canvas.height / 2);
+    ctx.fillText(
+      "Tap or Press Any Key to Start",
+      canvas.width / 2 - 190,
+      canvas.height / 2
+    );
   };
 };
-
-

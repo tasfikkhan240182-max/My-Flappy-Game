@@ -12,7 +12,7 @@ pipeImg.src = 'assets/pipe.png';
 let birdY = 250;
 let birdVelocity = 0;
 const gravity = 0.5;      // slower fall
-const jump = -8;
+const jump = -5.5;
 let pipes = [];
 let score = 0;
 let gameOver = false;
@@ -172,4 +172,5 @@ pipeImg.onload = () => {
     ctx.fillText("Tap or Press Any Key to Start", canvas.width / 2 - 180, canvas.height / 2);
   };
 };
+
 
